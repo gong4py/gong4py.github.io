@@ -5,5 +5,7 @@ main:
     url: /about/
   - title: "Archives"
     url: /archives/
+  - title: "Conference 2017"
+    url: /conf-2017
   - title: "GitHub"
     url: https://github.com/yous/whiteglass
