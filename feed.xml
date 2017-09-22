@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.5.2">Jekyll</generator>
   
   
-  <link href="/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="/" rel="alternate" type="text/html" />
-  <updated>2017-09-20T23:02:16+09:00</updated>
-  <id>//</id>
+  <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
+  <updated>2017-09-22T16:38:17+09:00</updated>
+  <id>http://localhost:4000//</id>
 
   
     <title type="html">Gong4.py</title>
@@ -23,14 +23,14 @@
   
     <entry>
       
-      <title type="html">Under construction</title>
+      <title type="html">Gong4.py conference 2017</title>
       
-      <link href="/2017/09/20/under-construction/" rel="alternate" type="text/html" title="Under construction" />
+      <link href="http://localhost:4000/2017/09/20/under-construction/" rel="alternate" type="text/html" title="Gong4.py conference 2017" />
       <published>2017-09-20T22:57:00+09:00</published>
       <updated>2017-09-20T22:57:00+09:00</updated>
-      <id>/2017/09/20/under-construction</id>
-      <content type="html" xml:base="/2017/09/20/under-construction/">&lt;p&gt;더 많은 공사파이 세미나 자료가 올라올 예정입니다.
-markdown file을 손보고 있으니 기다려주세요!&lt;/p&gt;</content>
+      <id>http://localhost:4000/2017/09/20/under-construction</id>
+      <content type="html" xml:base="http://localhost:4000/2017/09/20/under-construction/">&lt;p&gt;맨 위 메뉴 중 Conference 2017을 클릭하거나 이 링크를 클릭하세요: 
+&lt;a href=&quot;https://gong4py.github.io/conf-2017/&quot;&gt;https://gong4py.github.io/conf-2017/&lt;/a&gt;&lt;/p&gt;</content>
 
       
       
@@ -45,7 +45,7 @@ markdown file을 손보고 있으니 기다려주세요!&lt;/p&gt;</content>
       
 
       
-        <summary type="html">더 많은 공사파이 세미나 자료가 올라올 예정입니다. markdown file을 손보고 있으니 기다려주세요!</summary>
+        <summary type="html">맨 위 메뉴 중 Conference 2017을 클릭하거나 이 링크를 클릭하세요: https://gong4py.github.io/conf-2017/</summary>
       
 
       
@@ -58,11 +58,11 @@ markdown file을 손보고 있으니 기다려주세요!&lt;/p&gt;</content>
       
       <title type="html">Python version control with Anaconda - 1</title>
       
-      <link href="/2017/04/28/conda-1/" rel="alternate" type="text/html" title="Python version control with Anaconda - 1" />
+      <link href="http://localhost:4000/2017/04/28/conda-1/" rel="alternate" type="text/html" title="Python version control with Anaconda - 1" />
       <published>2017-04-28T20:00:00+09:00</published>
       <updated>2017-04-28T20:00:00+09:00</updated>
-      <id>/2017/04/28/conda-1</id>
-      <content type="html" xml:base="/2017/04/28/conda-1/">&lt;h1 id=&quot;python-version-control-with-anaconda&quot;&gt;Python version control with Anaconda&lt;/h1&gt;
+      <id>http://localhost:4000/2017/04/28/conda-1</id>
+      <content type="html" xml:base="http://localhost:4000/2017/04/28/conda-1/">&lt;h1 id=&quot;python-version-control-with-anaconda&quot;&gt;Python version control with Anaconda&lt;/h1&gt;
 
 &lt;p&gt;last edit: 2017. 4. 28 by JuneTech&lt;/p&gt;
 
