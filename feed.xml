@@ -3,10 +3,10 @@
   <generator uri="http://jekyllrb.com" version="3.5.2">Jekyll</generator>
   
   
-  <link href="/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="/" rel="alternate" type="text/html" />
-  <updated>2017-10-10T16:36:47+09:00</updated>
-  <id>//</id>
+  <link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="http://localhost:4000/" rel="alternate" type="text/html" />
+  <updated>2017-11-06T18:19:44+09:00</updated>
+  <id>http://localhost:4000//</id>
 
   
     <title type="html">Gong4.py</title>
@@ -23,13 +23,249 @@
   
     <entry>
       
+      <title type="html">Vpython 1 - Drone Simulation</title>
+      
+      <link href="http://localhost:4000/2017/11/06/vpython-1-drone-simulation/" rel="alternate" type="text/html" title="Vpython 1 - Drone Simulation" />
+      <published>2017-11-06T18:16:27+09:00</published>
+      <updated>2017-11-06T18:16:27+09:00</updated>
+      <id>http://localhost:4000/2017/11/06/vpython-1-drone-simulation</id>
+      <content type="html" xml:base="http://localhost:4000/2017/11/06/vpython-1-drone-simulation/">&lt;h1 id=&quot;vpython-활용기&quot;&gt;vpython 활용기&lt;/h1&gt;
+
+&lt;h2 id=&quot;김태훈&quot;&gt;김태훈&lt;/h2&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;vpython&quot;&gt;vpython&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;3d object의 표현이나 움직임을 쉽게 나타낼 수 있도록 도와주는 패키지 (http://www.vpython.org/)&lt;/li&gt;
+  &lt;li&gt;이전에 택호형이 한번 다룬적 있음&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;찾고-쓰게-된-계기&quot;&gt;찾고 쓰게 된 계기…&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이전에 한 번 들은 바가 있음 (Thx to 택호형)&lt;/li&gt;
+  &lt;li&gt;드론 시뮬레이터를 만들어달라는 의뢰를 받음
+    &lt;ul&gt;
+      &lt;li&gt;드론이 물류를 배송하는데 있어서, 조건들이 달라질때 상황이 어떻게 변하는지 간단하게 보여주기 위한 시뮬레이션 모델&lt;/li&gt;
+      &lt;li&gt;GPS성능, 풍속, 장애물 유무에 따라 지표가 어떻게 되는지,…&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;로직은 문제가 없는데 보여주는게 문제
+    &lt;ul&gt;
+      &lt;li&gt;로직은 3d 경로 상에서 겹치지 않게만 짜주면 문제가 없지만!&lt;/li&gt;
+      &lt;li&gt;산업공학과는 기본적으로 다 할 수 있습니다 ㅎㅎ&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;기본 파이선 라이브러리는 3d 오브젝트 생성, 카메라 앵글 회전, 경로 나타내기 등.. 어려움&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;기본적인-vpython-활용법-12&quot;&gt;기본적인 vpython 활용법 (1/2)&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;import vpython&lt;/li&gt;
+  &lt;li&gt;define canvas and scean
+    &lt;ul&gt;
+      &lt;li&gt;캔버스는 우리의 그림이 보여지는 환경을 뜻함&lt;/li&gt;
+      &lt;li&gt;기본적인 제목, 그림 프레임의 가로세로, 그림 상의 시작 위치(center), 배경 색깔 등 기본적인 정보를 정의&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;scean1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;canvas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;title&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;640&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;360&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;background&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;add objects in the scean
+    &lt;ul&gt;
+      &lt;li&gt;제목, 캡션, 구, 박스, 선, 점, 면 등 3d 객체 생성이 가능&lt;/li&gt;
+      &lt;li&gt;text의 경우, 폰트,사이즈,색상 등도 지정 가능&lt;/li&gt;
+      &lt;li&gt;3d object의 경우, 위치, 크기, 색상 등 지정 가능&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;small_block&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;box&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pos&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;기본적인-vpython-활용법-22&quot;&gt;기본적인 vpython 활용법 (2/2)&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;define and add control object
+    &lt;ul&gt;
+      &lt;li&gt;값 변경, 세팅 등을 위한 드랍다운, 슬라이더, 입력창, 라디오버튼, 버튼 등을 생성&lt;/li&gt;
+      &lt;li&gt;그리고 해당 이벤트 발생시 이를 핸들링할 함수를 만들어주면 된다!&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;menu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;choices&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'No Block'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Small Block'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Large Block'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_block_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 항목이 No Block/Small Block/Large Block 인 드랍다운 메뉴 생성&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# 첫 화면에서의 값은 1번 인덱스(즉 Small Block)&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# bind는 어떤 함수와 연결할 것인지를 지정&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;set_block_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;block_type&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;block_type&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selected&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;# 이런식으로 binding 된 객체에서 값을 불러올 수 있다&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'No Block'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Small Block'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Large Block'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;pass&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;그림을-다-그리고-나서&quot;&gt;그림을 다 그리고 나서&lt;/h1&gt;
+
+&lt;h2 id=&quot;사실-하고싶었던-얘기는&quot;&gt;(사실 하고싶었던 얘기는…)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;결국엔 시뮬레이션이라는 것은 움직임
+    &lt;ul&gt;
+      &lt;li&gt;고정된 물체는 큰 의미가 없다&lt;/li&gt;
+      &lt;li&gt;결국 움직이는 것이 중요&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;vector: vpython에서 객체를 조정할때 사용하는 기본 단위
+    &lt;ul&gt;
+      &lt;li&gt;pos = vector 를 활용하여 위치를 바꿔줄수도 있고&lt;/li&gt;
+      &lt;li&gt;delta 같은 느낌으로 활용할 수도 있음!
+        &lt;ul&gt;
+          &lt;li&gt;pos = pos + del_vec 하면 del_vec 만큼 움직이는것이 가능&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;기본적인-vector-활용법&quot;&gt;기본적인 vector 활용법&lt;/h1&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v1_norm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 크기가 1인 normal vector 리턴&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v1_mag&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mag&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 이 벡터의 크기를 리턴 해줌, 괄호 없음에 주의..&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 벡터의 합 가능&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dpv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 벡터의 내적&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cpv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cross&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 벡터의 외적&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;prj&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;proj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# v2로 v1을 투영&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rad_angle&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diff_angle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 두 벡터간의 각도&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rv1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rotate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;angle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;# v1을 v2를 축으로 theta만큼 회전 시켜라 (반시계 방향)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;자-그럼-이걸로&quot;&gt;자 그럼 이걸로…&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;드론끼리 만났을때 비껴가는 그림을 그려보자 &lt;img src=&quot;https://i.imgur.com/49iuRPJ.gif&quot; alt=&quot;ROTATION_Imgur&quot; /&gt;
+    &lt;ul&gt;
+      &lt;li&gt;경로가 겹치거나 충돌이 예상될 때, 이를 비껴가는 로직 및 그림을 그리자&lt;/li&gt;
+      &lt;li&gt;같은 축을 기준으로 원형으로 회전하듯 비껴가면 pseudo 최적임&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/p4zLYHV.gif&quot; alt=&quot;ROTATION2_Imgur&quot; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&quot;자-그럼-이걸로-1&quot;&gt;자 그럼 이걸로…&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;공통된 plane의 축을 찾는다&lt;/li&gt;
+  &lt;li&gt;두 안전반원이 만나는 지점을 찾는다&lt;/li&gt;
+  &lt;li&gt;plane과 원의 중심을 기준으로 rotation 좌표들을 찾는다&lt;/li&gt;
+  &lt;li&gt;다시 축과 만나는 좌표를 찾는다&lt;/li&gt;
+  &lt;li&gt;SUCCESS!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;d1_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;d1_vec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;d2_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;d2_vec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;norm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;d_c_vec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d2_pos&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d1_pos&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;r_axis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 축찾기 생략&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# ((d2-a) + (d1+a))^2 = 100 + 25&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# a = (20-sqrt(125))/2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;125&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#간략히..&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cos&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;#만나는 지점 찾기 간략&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;tmp_v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v1_rots&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;tmp_v&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tmp_v&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rotate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;angle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;float&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;r&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;r_axis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;v1_rots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tmp_v&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;v1_detour&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j_th&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j_th&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1_rots&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;v1_feasible&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j_th&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j_th&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;v1_detour&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j_th&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;4.992818&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.810430&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;5.725192&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.488883&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;6.577755&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.008313&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;7.516519&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.348010&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;8.504057&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.494432&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;9.501000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.441742&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;10.467602&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.192040&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;11.365329&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.755282&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;12.158390&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1.148879&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;12.815169&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.397006&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.000000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;h1 id=&quot;우선은-끝&quot;&gt;우선은 끝…!&lt;/h1&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+
+      
+
+      
+
+      
+        <summary type="html">vpython 활용기</summary>
+      
+
+      
+      
+    </entry>
+  
+  
+  
+    <entry>
+      
       <title type="html">Gong4.py Conference 2017</title>
       
-      <link href="/2017/09/20/gong4-py-conference-2017/" rel="alternate" type="text/html" title="Gong4.py Conference 2017" />
+      <link href="http://localhost:4000/2017/09/20/gong4-py-conference-2017/" rel="alternate" type="text/html" title="Gong4.py Conference 2017" />
       <published>2017-09-20T20:00:00+09:00</published>
       <updated>2017-09-20T20:00:00+09:00</updated>
-      <id>/2017/09/20/gong4-py-conference-2017</id>
-      <content type="html" xml:base="/2017/09/20/gong4-py-conference-2017/">&lt;p&gt;맨 위 메뉴 중 Conference 2017을 클릭하거나 이 링크를 클릭하세요: 
+      <id>http://localhost:4000/2017/09/20/gong4-py-conference-2017</id>
+      <content type="html" xml:base="http://localhost:4000/2017/09/20/gong4-py-conference-2017/">&lt;p&gt;맨 위 메뉴 중 Conference 2017을 클릭하거나 이 링크를 클릭하세요: 
 &lt;a href=&quot;https://gong4py.github.io/conf-2017/&quot;&gt;https://gong4py.github.io/conf-2017/&lt;/a&gt;&lt;/p&gt;</content>
 
       
@@ -46,333 +282,6 @@
 
       
         <summary type="html">맨 위 메뉴 중 Conference 2017을 클릭하거나 이 링크를 클릭하세요: https://gong4py.github.io/conf-2017/</summary>
-      
-
-      
-      
-    </entry>
-  
-  
-  
-    <entry>
-      
-      <title type="html">Python version control with Anaconda - 1</title>
-      
-      <link href="/2017/04/28/conda-1/" rel="alternate" type="text/html" title="Python version control with Anaconda - 1" />
-      <published>2017-04-28T20:00:00+09:00</published>
-      <updated>2017-04-28T20:00:00+09:00</updated>
-      <id>/2017/04/28/conda-1</id>
-      <content type="html" xml:base="/2017/04/28/conda-1/">&lt;h1 id=&quot;python-version-control-with-anaconda&quot;&gt;Python version control with Anaconda&lt;/h1&gt;
-
-&lt;p&gt;last edit: 2017. 4. 28 by JuneTech&lt;/p&gt;
-
-&lt;h2 id=&quot;anaconda&quot;&gt;Anaconda&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://ijstokes-public.s3.amazonaws.com/dspyr/img/AnacondaCIO_Logo&quot; alt=&quot;Anaconda_logo&quot; /&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Anaconda is the leading open data science platform powered by Python. The open source version of Anaconda is a high performance distribution of Python and R and includes over 100 of the most popular Python, R and Scala packages for data science.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Freemium open source distribution of the Python and R programming languages&lt;/li&gt;
-  &lt;li&gt;Aims to simplify package management and deployment&lt;/li&gt;
-  &lt;li&gt;Uses &lt;strong&gt;Conda&lt;/strong&gt; as a package management system&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;conda&quot;&gt;Conda&lt;/h2&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://conda.io/docs/_images/conda_logo.svg&quot; alt=&quot;Conda_logo&quot; /&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Package, dependency and environment management for any language: Python, R, Ruby, Lua, Scala, Java, Javascript, C/ C++, FORTRAN&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Substitutes pip&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;basic-conda-commands&quot;&gt;Basic conda commands&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;conda install scikit-learn&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Fetching package metadata ...........
-Solving package specifications: .
-
-Package plan &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;installation &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;environment C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3:
-
-The following NEW packages will be INSTALLED:
-
-    mkl:          2017.0.1-0
-    numpy:        1.12.1-py36_0
-    scikit-learn: 0.18.1-np112py36_1
-    scipy:        0.19.0-np112py36_0
-
-The following packages will be UPDATED:
-
-    conda:        4.3.11-py36_0      --&amp;gt; 4.3.16-py36_0
-
-Proceed &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;y]/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;? y
-
-mkl-2017.0.1-0 100% |###############################| Time: 0:00:06  22.44 MB/s
-numpy-1.12.1-p 100% |###############################| Time: 0:00:00  12.91 MB/s
-scipy-0.19.0-n 100% |###############################| Time: 0:00:00  20.44 MB/s
-scikit-learn-0 100% |###############################| Time: 0:00:00  21.88 MB/s
-conda-4.3.16-p 100% |###############################| Time: 0:00:00  36.47 MB/s
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;conda update python&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS C:&lt;span class=&quot;se&quot;&gt;\W&lt;/span&gt;INDOWS&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;ystem32&amp;gt; conda update python
-Fetching package metadata ...........
-Solving package specifications: .
-
-Package plan &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;installation &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;environment C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3:
-
-The following packages will be UPDATED:
-
-    python: 3.6.0-0 --&amp;gt; 3.6.1-0
-
-Proceed &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;y]/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;? y
-
-python-3.6.1-0 100% |###############################| Time: 0:00:04   7.90 MB/s
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;upgrade&lt;/code&gt; command acts the same as &lt;code class=&quot;highlighter-rouge&quot;&gt;update&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;conda update --all&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS C:&lt;span class=&quot;se&quot;&gt;\W&lt;/span&gt;INDOWS&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;ystem32&amp;gt; conda update --all
-Fetching package metadata ...........
-Solving package specifications: .
-
-Package plan &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;installation &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;environment C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3:
-
-The following packages will be UPDATED:
-
-    pyasn1:   0.1.9-py36_0  --&amp;gt; 0.2.3-py36_0
-    pycosat:  0.6.1-py36_1  --&amp;gt; 0.6.2-py36_0
-    requests: 2.12.4-py36_0 --&amp;gt; 2.13.0-py36_0
-
-Proceed &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;y]/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;? y
-
-pyasn1-0.2.3-p 100% |###############################| Time: 0:00:00   2.11 MB/s
-pycosat-0.6.2- 100% |###############################| Time: 0:00:00   3.84 MB/s
-requests-2.13. 100% |###############################| Time: 0:00:00   6.00 MB/s
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;environment-using-multiple-version-of-python&quot;&gt;Environment: using multiple version of Python&lt;/h2&gt;
-
-&lt;p&gt;Gurobi 7.0.2 supports python up to version 2.7 and 3.5, so installing gurobipy on python 3.6.1 is impossible yet&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobi702&lt;span class=&quot;se&quot;&gt;\w&lt;/span&gt;in64&amp;gt;python --version
-Python 3.6.1 :: Continuum Analytics, Inc.
-
-C:&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobi702&lt;span class=&quot;se&quot;&gt;\w&lt;/span&gt;in64&amp;gt;python setup.py
-Traceback &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;most recent call last&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;:
-  File &lt;span class=&quot;s2&quot;&gt;&quot;setup.py&quot;&lt;/span&gt;, line 23, &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &amp;lt;module&amp;gt;
-    raise RuntimeError&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Unsupported Python version&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-RuntimeError: Unsupported Python version
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;So, create new environment with python 3.5:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;conda create -n python35 python=3.5 anaconda&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS D:&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;rojects&lt;span class=&quot;se&quot;&gt;\r&lt;/span&gt;sch_20170420&amp;gt; conda create -n python35 &lt;span class=&quot;nv&quot;&gt;python&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3.5 anaconda
-Fetching package metadata ...........
-Solving package specifications: .
-
-Package plan &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;installation &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;environment C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;nvs&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;ython35:
-
-The following NEW packages will be INSTALLED:
-
-    _license:            1.1-py35_1
-    alabaster:           0.7.9-py35_0
-    anaconda:            4.3.1-np111py35_0
-    anaconda-client:     1.6.0-py35_0
-    anaconda-navigator:  1.5.0-py35_0
-    anaconda-project:    0.4.1-py35_0
-    argcomplete:         1.0.0-py35_1
-    ...
-    vs2015_runtime:      14.0.25123-0
-    wcwidth:             0.1.7-py35_0
-    werkzeug:            0.11.15-py35_0
-    wheel:               0.29.0-py35_0
-    widgetsnbextension:  1.2.6-py35_0
-    win_unicode_console: 0.5-py35_0
-    wrapt:               1.10.8-py35_0
-    xlrd:                1.0.0-py35_0
-    xlsxwriter:          0.9.6-py35_0
-    xlwings:             0.10.2-py35_0
-    xlwt:                1.2.0-py35_0
-    zlib:                1.2.8-vc14_3       &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;vc14]
-
-    Proceed &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;y]/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;? y
-
-    ...
-
-    jupyter-1.0.0- 100% |###############################| Time: 0:00:00 294.10 kB/s
-    anaconda-4.3.1 100% |###############################| Time: 0:00:00   2.36 MB/s
-    &lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# To activate this environment, use:&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# &amp;gt; activate python35&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# To deactivate this environment, use:&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# &amp;gt; deactivate python35&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;# * for power-users using bash, you must source&lt;/span&gt;
-    &lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;Switching to python 3.5 installed above:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobi702&lt;span class=&quot;se&quot;&gt;\w&lt;/span&gt;in64&amp;gt;activate python35
-
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;python35&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; C:&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobi702&lt;span class=&quot;se&quot;&gt;\w&lt;/span&gt;in64&amp;gt;python --version
-Python 3.5.2 :: Anaconda 4.3.1 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;64-bit&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;and see if the installation works:&lt;/p&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;python35&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; C:&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobi702&lt;span class=&quot;se&quot;&gt;\w&lt;/span&gt;in64&amp;gt;python setup.py install
-running install
-running build
-running build_py
-running install_lib
-creating C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;nvs&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;ython35&lt;span class=&quot;se&quot;&gt;\L&lt;/span&gt;ib&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;ite-packages&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy
-copying build&lt;span class=&quot;se&quot;&gt;\l&lt;/span&gt;ib&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy.pyd -&amp;gt; C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;nvs&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;ython35&lt;span class=&quot;se&quot;&gt;\L&lt;/span&gt;ib&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;ite-packages&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy
-copying build&lt;span class=&quot;se&quot;&gt;\l&lt;/span&gt;ib&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy&lt;span class=&quot;se&quot;&gt;\_&lt;/span&gt;_init__.py -&amp;gt; C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;nvs&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;ython35&lt;span class=&quot;se&quot;&gt;\L&lt;/span&gt;ib&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;ite-packages&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy
-byte-compiling C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;nvs&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;ython35&lt;span class=&quot;se&quot;&gt;\L&lt;/span&gt;ib&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;ite-packages&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy&lt;span class=&quot;se&quot;&gt;\_&lt;/span&gt;_init__.py to __init__.cpython-35.pyc
-running install_egg_info
-Writing C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;nvs&lt;span class=&quot;se&quot;&gt;\p&lt;/span&gt;ython35&lt;span class=&quot;se&quot;&gt;\L&lt;/span&gt;ib&lt;span class=&quot;se&quot;&gt;\s&lt;/span&gt;ite-packages&lt;span class=&quot;se&quot;&gt;\g&lt;/span&gt;urobipy-7.0.2-py3.5.egg-info
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;environment-commands&quot;&gt;Environment commands&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;conda env list&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS D:\&amp;gt; conda env list
-# conda environments:
-#
-konlp                    C:\ProgramData\Miniconda3\envs\konlp
-python35                 C:\ProgramData\Miniconda3\envs\python35
-root                  *  C:\ProgramData\Miniconda3
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Export list of packages installed in environments: &lt;code class=&quot;highlighter-rouge&quot;&gt;conda list --export &amp;gt; package_list.txt&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:&lt;span class=&quot;se&quot;&gt;\U&lt;/span&gt;sers&lt;span class=&quot;se&quot;&gt;\J&lt;/span&gt;T&amp;gt;activate python35
-
-&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;python35&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; C:&lt;span class=&quot;se&quot;&gt;\U&lt;/span&gt;sers&lt;span class=&quot;se&quot;&gt;\J&lt;/span&gt;T&amp;gt;conda list
-&lt;span class=&quot;c&quot;&gt;# packages in environment at C:\ProgramData\Miniconda3\envs\python35:&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
-_license                  1.1                      py35_1
-alabaster                 0.7.10                   py35_0
-anaconda                  custom                   py35_0
-anaconda-client           1.6.3                    py35_0
-...
-gurobipy                  7.0.2                     &amp;lt;pip&amp;gt;
-h5py                      2.7.0               np112py35_0
-hdf5                      1.8.15.1                 vc14_4  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;vc14]
-heapdict                  1.0.0                    py35_1
-html5lib                  0.999                    py35_0
-...
-ipython                   6.0.0                    py35_1
-ipython_genutils          0.2.0                    py35_0
-ipywidgets                6.0.0                    py35_0
-...
-jupyter                   1.0.0                    py35_3
-jupyter_client            5.0.1                    py35_0
-jupyter_console           5.1.0                    py35_0
-jupyter_core              4.3.0                    py35_0
-...
-matplotlib                2.0.2               np112py35_0
-menuinst                  1.4.7                    py35_0
-...
-xlrd                      1.0.0                    py35_0
-xlsxwriter                0.9.6                    py35_0
-xlwings                   0.10.4                   py35_0
-xlwt                      1.2.0                    py35_0
-zlib                      1.2.8                    vc14_3  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;vc14]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Export environment information: &lt;code class=&quot;highlighter-rouge&quot;&gt;conda env export --file FILENAME.yml&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;python35&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; C:&lt;span class=&quot;se&quot;&gt;\U&lt;/span&gt;sers&lt;span class=&quot;se&quot;&gt;\J&lt;/span&gt;T&amp;gt;conda env &lt;span class=&quot;nb&quot;&gt;export&lt;/span&gt; --file gurobipy35
-[31mDEPRECATION: The default format will switch to columns &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;the future. You can use --format&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;legacy|columns&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;or define a &lt;span class=&quot;nv&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=(&lt;/span&gt;legacy|columns&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;your pip.conf under the &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;list] section&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; to disable this warning.[0m
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Use environment from file: &lt;code class=&quot;highlighter-rouge&quot;&gt;conda env create -f envorinment.yml&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;걍 되어야하는데 안되네요. 왜 그런지 좀 더 파보겠습니다...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;conda env remove --name ENVNAME&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;PS D:&lt;span class=&quot;se&quot;&gt;\&amp;gt;&lt;/span&gt; conda env remove --name konlp
-
-Package plan &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;package removal &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;environment C:&lt;span class=&quot;se&quot;&gt;\P&lt;/span&gt;rogramData&lt;span class=&quot;se&quot;&gt;\M&lt;/span&gt;iniconda3&lt;span class=&quot;se&quot;&gt;\e&lt;/span&gt;nvs&lt;span class=&quot;se&quot;&gt;\k&lt;/span&gt;onlp:
-
-The following packages will be REMOVED:
-
-    pip:            9.0.1-py27_1
-    python:         2.7.13-1
-    setuptools:     27.2.0-py27_1
-    vs2008_runtime: 9.00.30729.5054-0
-    wheel:          0.29.0-py27_0
-
-Proceed &lt;span class=&quot;o&quot;&gt;([&lt;/span&gt;y]/n&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;? y
-
-Unlinking packages ...
-&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;      COMPLETE      &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;|##################################################| 100%
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;</content>
-
-      
-      
-      
-      
-      
-
-      
-
-      
-
-      
-
-      
-        <summary type="html">Python version control with Anaconda</summary>
       
 
       

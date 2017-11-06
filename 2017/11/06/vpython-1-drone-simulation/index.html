@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Vpython 1 - Drone Simulation</title>
+  <meta name="description" content="vpython 활용기">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="http://localhost:4000/2017/11/06/vpython-1-drone-simulation/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="Gong4.py" href="http://localhost:4000/feed.xml">
+
+  
+
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Vpython 1 - Drone Simulation">
+  <meta name="twitter:description" content="vpython 활용기">
+  
+  
+
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: { families: [ 'Bitter:400,700,400italic:latin' ] }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })();
+</script>
+
+  
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">Gong4.py</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="/conf-2017">Conference 2017</a>
+      
+        
+        <a class="page-link" href="https://github.com/yous/whiteglass">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Vpython 1 - Drone Simulation</h1>
+    
+    <p class="post-meta"><time datetime="2017-11-06T18:16:27+09:00" itemprop="datePublished">Nov 6, 2017</time></p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <h1 id="vpython-활용기">vpython 활용기</h1>
+
+<h2 id="김태훈">김태훈</h2>
+
+<hr />
+<h1 id="vpython">vpython</h1>
+
+<ul>
+  <li>3d object의 표현이나 움직임을 쉽게 나타낼 수 있도록 도와주는 패키지 (http://www.vpython.org/)</li>
+  <li>이전에 택호형이 한번 다룬적 있음</li>
+</ul>
+
+<hr />
+
+<h1 id="찾고-쓰게-된-계기">찾고 쓰게 된 계기…</h1>
+
+<ul>
+  <li>이전에 한 번 들은 바가 있음 (Thx to 택호형)</li>
+  <li>드론 시뮬레이터를 만들어달라는 의뢰를 받음
+    <ul>
+      <li>드론이 물류를 배송하는데 있어서, 조건들이 달라질때 상황이 어떻게 변하는지 간단하게 보여주기 위한 시뮬레이션 모델</li>
+      <li>GPS성능, 풍속, 장애물 유무에 따라 지표가 어떻게 되는지,…</li>
+    </ul>
+  </li>
+  <li>로직은 문제가 없는데 보여주는게 문제
+    <ul>
+      <li>로직은 3d 경로 상에서 겹치지 않게만 짜주면 문제가 없지만!</li>
+      <li>산업공학과는 기본적으로 다 할 수 있습니다 ㅎㅎ</li>
+    </ul>
+  </li>
+  <li>기본 파이선 라이브러리는 3d 오브젝트 생성, 카메라 앵글 회전, 경로 나타내기 등.. 어려움</li>
+</ul>
+
+<hr />
+
+<h1 id="기본적인-vpython-활용법-12">기본적인 vpython 활용법 (1/2)</h1>
+
+<ul>
+  <li>import vpython</li>
+  <li>define canvas and scean
+    <ul>
+      <li>캔버스는 우리의 그림이 보여지는 환경을 뜻함</li>
+      <li>기본적인 제목, 그림 프레임의 가로세로, 그림 상의 시작 위치(center), 배경 색깔 등 기본적인 정보를 정의</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">scean1</span> <span class="o">=</span> <span class="n">canvas</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span><span class="s">"title"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">640</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">30</span><span class="p">),</span><span class="n">background</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mf">0.75</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>add objects in the scean
+    <ul>
+      <li>제목, 캡션, 구, 박스, 선, 점, 면 등 3d 객체 생성이 가능</li>
+      <li>text의 경우, 폰트,사이즈,색상 등도 지정 가능</li>
+      <li>3d object의 경우, 위치, 크기, 색상 등 지정 가능</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">small_block</span> <span class="o">=</span> <span class="n">box</span><span class="p">(</span><span class="n">pos</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">size</span><span class="o">=</span><span class="n">vector</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="기본적인-vpython-활용법-22">기본적인 vpython 활용법 (2/2)</h1>
+
+<ul>
+  <li>define and add control object
+    <ul>
+      <li>값 변경, 세팅 등을 위한 드랍다운, 슬라이더, 입력창, 라디오버튼, 버튼 등을 생성</li>
+      <li>그리고 해당 이벤트 발생시 이를 핸들링할 함수를 만들어주면 된다!</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">menu</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">[</span><span class="s">'No Block'</span><span class="p">,</span> <span class="s">'Small Block'</span><span class="p">,</span> <span class="s">'Large Block'</span><span class="p">],</span> <span class="n">index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bind</span><span class="o">=</span><span class="n">set_block_type</span><span class="p">)</span>
+<span class="c"># 항목이 No Block/Small Block/Large Block 인 드랍다운 메뉴 생성</span>
+<span class="c"># 첫 화면에서의 값은 1번 인덱스(즉 Small Block)</span>
+<span class="c"># bind는 어떤 함수와 연결할 것인지를 지정</span>
+<span class="k">def</span> <span class="nf">set_block_type</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">block_type</span>
+    <span class="n">block_type</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">selected</span>
+    <span class="c"># 이런식으로 binding 된 객체에서 값을 불러올 수 있다</span>
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">selected</span> <span class="o">==</span> <span class="s">'No Block'</span><span class="p">:</span>
+        <span class="k">pass</span> 
+    <span class="k">elif</span> <span class="n">m</span><span class="o">.</span><span class="n">selected</span> <span class="o">==</span> <span class="s">'Small Block'</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">elif</span> <span class="n">m</span><span class="o">.</span><span class="n">selected</span> <span class="o">==</span> <span class="s">'Large Block'</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="그림을-다-그리고-나서">그림을 다 그리고 나서</h1>
+
+<h2 id="사실-하고싶었던-얘기는">(사실 하고싶었던 얘기는…)</h2>
+
+<ul>
+  <li>결국엔 시뮬레이션이라는 것은 움직임
+    <ul>
+      <li>고정된 물체는 큰 의미가 없다</li>
+      <li>결국 움직이는 것이 중요</li>
+    </ul>
+  </li>
+  <li>vector: vpython에서 객체를 조정할때 사용하는 기본 단위
+    <ul>
+      <li>pos = vector 를 활용하여 위치를 바꿔줄수도 있고</li>
+      <li>delta 같은 느낌으로 활용할 수도 있음!
+        <ul>
+          <li>pos = pos + del_vec 하면 del_vec 만큼 움직이는것이 가능</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h1 id="기본적인-vector-활용법">기본적인 vector 활용법</h1>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">v1</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">v1_norm</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span> <span class="c"># 크기가 1인 normal vector 리턴</span>
+<span class="n">v1_mag</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">mag</span> <span class="c"># 이 벡터의 크기를 리턴 해줌, 괄호 없음에 주의..</span>
+<span class="n">v3</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span> <span class="c"># 벡터의 합 가능</span>
+<span class="n">dpv</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="c"># 벡터의 내적</span>
+<span class="n">cpv</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="c"># 벡터의 외적</span>
+<span class="n">prj</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">proj</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="c"># v2로 v1을 투영</span>
+<span class="n">rad_angle</span> <span class="o">=</span> <span class="n">v1</span><span class="o">.</span><span class="n">diff_angle</span><span class="p">(</span><span class="n">v2</span><span class="p">)</span> <span class="c"># 두 벡터간의 각도</span>
+<span class="n">rv1</span> <span class="o">=</span> <span class="n">rotate</span><span class="p">(</span><span class="n">vector</span><span class="o">=</span><span class="n">v1</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="n">theta</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">v2</span><span class="p">)</span> 
+<span class="c"># v1을 v2를 축으로 theta만큼 회전 시켜라 (반시계 방향)</span>
+</code></pre>
+</div>
+
+<hr />
+
+<h1 id="자-그럼-이걸로">자 그럼 이걸로…</h1>
+
+<ul>
+  <li>드론끼리 만났을때 비껴가는 그림을 그려보자 <img src="https://i.imgur.com/49iuRPJ.gif" alt="ROTATION_Imgur" />
+    <ul>
+      <li>경로가 겹치거나 충돌이 예상될 때, 이를 비껴가는 로직 및 그림을 그리자</li>
+      <li>같은 축을 기준으로 원형으로 회전하듯 비껴가면 pseudo 최적임</li>
+    </ul>
+  </li>
+</ul>
+
+<p><img src="https://i.imgur.com/p4zLYHV.gif" alt="ROTATION2_Imgur" /></p>
+
+<hr />
+
+<h1 id="자-그럼-이걸로-1">자 그럼 이걸로…</h1>
+
+<ol>
+  <li>공통된 plane의 축을 찾는다</li>
+  <li>두 안전반원이 만나는 지점을 찾는다</li>
+  <li>plane과 원의 중심을 기준으로 rotation 좌표들을 찾는다</li>
+  <li>다시 축과 만나는 좌표를 찾는다</li>
+  <li>SUCCESS!</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="n">r</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">d1_pos</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">d1_vec</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+<span class="n">d2_pos</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">d2_vec</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">norm</span><span class="p">()</span>
+<span class="n">d_c_vec</span> <span class="o">=</span> <span class="n">d2_pos</span> <span class="o">-</span> <span class="n">d1_pos</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">r_axis</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span> <span class="c"># 축찾기 생략</span>
+<span class="c"># ((d2-a) + (d1+a))^2 = 100 + 25</span>
+<span class="c"># a = (20-sqrt(125))/2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">125</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span> <span class="c">#간략히..</span>
+<span class="n">cv</span> <span class="o">=</span> <span class="o">-</span><span class="n">vector</span><span class="p">(</span><span class="n">r</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="n">r</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">cp</span> <span class="o">=</span> <span class="n">vector</span><span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">r</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">r</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> 
+<span class="c">#만나는 지점 찾기 간략</span>
+<span class="n">tmp_v</span> <span class="o">=</span> <span class="n">cv</span>
+<span class="n">v1_rots</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">30</span><span class="p">):</span>
+    <span class="n">tmp_v</span> <span class="o">=</span> <span class="n">tmp_v</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="p">)),</span> <span class="n">axis</span> <span class="o">=</span> <span class="n">r_axis</span><span class="p">)</span>
+    <span class="n">v1_rots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp_v</span><span class="p">)</span>
+
+<span class="n">v1_detour</span> <span class="o">=</span> <span class="p">[</span><span class="n">j_th</span><span class="o">+</span><span class="n">cp</span> <span class="k">for</span> <span class="n">j_th</span> <span class="ow">in</span> <span class="n">v1_rots</span><span class="p">]</span>
+<span class="n">v1_feasible</span> <span class="o">=</span> <span class="p">[</span><span class="n">j_th</span> <span class="k">for</span> <span class="n">j_th</span> <span class="ow">in</span> <span class="n">v1_detour</span> <span class="k">if</span> <span class="n">j_th</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="o">&lt;</span><span class="mf">4.992818</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.810430</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">5.725192</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.488883</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">6.577755</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.008313</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">7.516519</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.348010</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">8.504057</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.494432</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">9.501000</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.441742</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">10.467602</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.192040</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">11.365329</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.755282</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">12.158390</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.148879</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="o">&lt;</span><span class="mf">12.815169</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.397006</span><span class="p">,</span> <span class="mf">0.000000</span><span class="o">&gt;</span><span class="p">]</span>
+</code></pre>
+</div>
+
+<hr />
+<h1 id="우선은-끝">우선은 끝…!</h1>
+
+  </div>
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy;  - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="http://localhost:4000/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
