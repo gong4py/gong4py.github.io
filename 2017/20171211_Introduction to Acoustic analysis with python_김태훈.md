@@ -249,3 +249,64 @@ plt.show()
 - 멍멍이 소리를 학습하는 작업은 우선 정지...
 
 - <del>그래도 공4파이 발표자료는 남았잖아...<del>
+ 
+---
+
+```python
+# 전체 코드
+# 실행 이전에 멍멍이 소리를 받아주세요
+# Dog-bark file directory: https://www.dropbox.com/home/Gong4py(shared)/data/Dog-bark.wav
+
+from __future__ import print_function, division
+import wave
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import signal
+from scipy.io import wavfile
+
+soundfileName = 'Dog-bark.wav'
+wr = wave.open(soundfileName, 'r')
+sz = wr.getframerate()
+frames = wr.getnframes()
+duration = int(np.floor(frames / float(sz)))
+sf = 1.5  # signal scale factor
+sample_rate, samples = wavfile.read(soundfileName)
+samples = samples.sum(axis=1)/2
+frequencies, times, spectogram = signal.spectrogram(samples, sample_rate)
+
+avgf = np.zeros(int(sz/2+1))
+snd = np.array([])
+# The sound signal for q seconds is concatenated. The fft over that
+# period is averaged to average out noise.
+for j in range(duration):
+    da = np.fromstring(wr.readframes(sz), dtype=np.int16)
+    left, right = da[0::2]*1.5, da[1::2]*1.5
+    lf, rf = abs(np.fft.rfft(left)), abs(np.fft.rfft(right))
+    snd = np.concatenate((snd, (left+right)/2))
+    avgf += (lf+rf)/2
+avgf /= duration
+# Plot both the signal and frequencies.
+plt.figure(figsize=(16, 16))
+
+a = plt.subplot(311)  # signal
+a.set_ylim([-50000, 50000])
+a.set_xlabel('Time [s]')
+a.set_ylabel('|Amplitude|')
+#a.set_ylabel('signal [-]')
+x = np.arange(44100*duration)/44100
+plt.plot(x, snd)
+b = plt.subplot(312)  # frequencies
+#b.set_xscale('log')
+b.set_xlim([100,2000])
+b.set_xlabel('Frequency [Hz]')
+b.set_ylabel('|Amplitude|')
+plt.plot(abs(avgf))
+bb = plt.subplot(313)
+plt.subplots_adjust(hspace = 0.2)
+
+bb.pcolormesh(times, frequencies, spectogram)
+bb.set_ylim(ymax=2500)
+bb.set_ylabel('Frequency [Hz]')
+bb.set_xlabel('Time [s]')
+plt.show()
+```
